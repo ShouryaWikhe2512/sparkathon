@@ -1,4 +1,4 @@
-import { Package, Trash2 } from "lucide-react";
+import { Group, Package, Trash2, User, Users } from "lucide-react";
 
 interface Pod {
   id: string;
@@ -34,7 +34,7 @@ export default function PodHeader({
         <div className="max-w-7xl mx-auto">
           <div className="flex items-center justify-between mb-4">
             <div className="flex items-center gap-3">
-              <Package className="w-8 h-8 text-[#04b7cf]" />
+              <Users className="w-8 h-8 text-[#04b7cf]" />
               <h1 className="text-3xl font-bold text-gray-900">
                 Shopping Pods
               </h1>

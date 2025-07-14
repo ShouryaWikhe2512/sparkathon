@@ -319,7 +319,7 @@ export default function SmartSearchPage() {
                                   </p>
                                   {item.price !== undefined && (
                                     <p className="text-sm text-green-600 font-semibold">
-                                      ₹{item.price.toFixed(2)}
+                                      ₹{Number(item.price).toFixed(2)}
                                     </p>
                                   )}
                                 </div>
@@ -457,7 +457,7 @@ export default function SmartSearchPage() {
                                       </h4>
                                       {item.price !== undefined && (
                                         <p className="text-sm text-green-600 font-bold mb-1">
-                                          ₹{item.price.toFixed(2)}
+                                          ₹{Number(item.price).toFixed(2)}
                                         </p>
                                       )}
                                       {item.quantity !== undefined && (

@@ -29,7 +29,11 @@ const StoreNavigationApp = forwardRef(function StoreNavigationApp(_, ref) {
   }, []);
 
   const generateRoute = useCallback(() => {
-    if (selectedProducts.length === 0) return;
+    if (selectedProducts.length === 0) {
+      setPath([]);
+      setHighlightedAisles([]);
+      return;
+    }
 
     // Get unique aisles from selected products
     const selectedAisles = new Set(
@@ -122,6 +126,11 @@ const StoreNavigationApp = forwardRef(function StoreNavigationApp(_, ref) {
       });
     },
     generateRoute: () => generateRoute(),
+    removeProductsFromList: (productIds: string[]) => {
+      setSelectedProducts((prev) =>
+        prev.filter((id) => !productIds.includes(id))
+      );
+    },
   }));
 
   const estimatedTime = Math.ceil(path.length * 0.5); // Rough estimate

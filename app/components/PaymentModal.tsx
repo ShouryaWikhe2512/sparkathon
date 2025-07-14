@@ -337,7 +337,7 @@ export default function PaymentModal({
                 </label>
                 <input
                   type="text"
-                  placeholder="John Doe"
+                  placeholder="Rajesh Kumar"
                   value={paymentDetails.cardName || ""}
                   onChange={(e) =>
                     setPaymentDetails({

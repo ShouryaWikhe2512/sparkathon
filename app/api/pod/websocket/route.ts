@@ -1,3 +1,5 @@
+//@ts-nocheck
+
 import { NextRequest } from "next/server";
 
 // WebSocket connections store

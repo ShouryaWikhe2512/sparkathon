@@ -1,4 +1,4 @@
-import { Package, Plus, Minus, Trash2, CreditCard } from "lucide-react";
+import { Package, Plus, Minus, Trash2, CreditCard, User } from "lucide-react";
 
 interface PodItem {
   id: string;
@@ -22,6 +22,11 @@ interface PodCartProps {
   onUpdateQuantity: (itemId: string, change: number) => void;
   onRemoveItem: (itemId: string) => void;
   onPaymentClick: () => void;
+  // New props for users dropdown
+  members?: { id: string; name: string }[];
+  showUsersDropdown?: boolean;
+  setShowUsersDropdown?: (v: boolean) => void;
+  usersDropdownRef?: React.RefObject<HTMLDivElement>;
 }
 
 export default function PodCart({
@@ -32,6 +37,10 @@ export default function PodCart({
   onUpdateQuantity,
   onRemoveItem,
   onPaymentClick,
+  members = [],
+  showUsersDropdown = false,
+  setShowUsersDropdown = () => {},
+  usersDropdownRef,
 }: PodCartProps) {
   const formatTimeAgo = (date: Date | string) => {
     // Convert string to Date if needed
@@ -51,11 +60,40 @@ export default function PodCart({
     <div className="bg-white rounded-2xl shadow-md p-6 sticky top-8">
       <div className="flex items-center justify-between mb-6">
         <h2 className="text-xl font-semibold text-gray-800">{podName}</h2>
-        {totalItems > 0 && (
-          <span className="bg-[#04cf84] text-white px-3 py-1 rounded-full text-sm font-medium">
-            {totalItems} items
-          </span>
-        )}
+        <div className="flex items-center gap-2">
+          {totalItems > 0 && (
+            <span className="bg-[#04cf84] text-white px-3 py-1 rounded-full text-sm font-medium">
+              {totalItems} items
+            </span>
+          )}
+          {/* Users Button */}
+          {members.length > 0 && (
+            <div className="relative">
+              <button
+                className="flex items-center gap-1 bg-[#04b7cf] text-white px-3 py-1 rounded-full text-sm font-semibold hover:bg-[#04cf84] transition-colors"
+                onClick={() => setShowUsersDropdown(!showUsersDropdown)}
+              >
+                <User className="w-4 h-4" />
+                Users
+              </button>
+              {showUsersDropdown && (
+                <div
+                  ref={usersDropdownRef}
+                  className="absolute right-0 mt-2 w-48 bg-white border border-gray-200 rounded-lg shadow-lg z-20 p-4"
+                >
+                  <div className="font-semibold text-gray-700 mb-2">
+                    Pod Members
+                  </div>
+                  <ul className="list-disc pl-5 text-gray-800">
+                    {members.map((member) => (
+                      <li key={member.id}>{member.name}</li>
+                    ))}
+                  </ul>
+                </div>
+              )}
+            </div>
+          )}
+        </div>
       </div>
 
       {items.length === 0 ? (
@@ -97,7 +135,7 @@ export default function PodCart({
 
                   <div className="flex items-center justify-between">
                     <div className="flex items-center gap-2">
-                      <span className="text-lg">{item.addedBy.avatar}</span>
+                      <span className="text-lg">👤</span>
                       <div>
                         <p className="text-xs text-gray-600">
                           Added by {item.addedBy.name}
